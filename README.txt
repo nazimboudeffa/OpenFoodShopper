@@ -10,7 +10,7 @@ https://gist.github.com/boudeffa/8344183
 
 -----> After search
 
-- Click on Food get into Open Food Facts
+- Click on Food get into Open Food Facts (OFF)
 - Longclick add the Food to OI Shopping List
 
 TODO :
