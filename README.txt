@@ -1,6 +1,8 @@
 This Project is under Apache Licence so be respectful to the terms please
 This work is about one month total time 8 hours / day of reasearch and developpement
 
+HOWTO :
+
 - Put a word in the text box then click find Foods (Must be named Find On OFF)
 
 -----> After search
