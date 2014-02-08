@@ -1,6 +1,11 @@
-﻿===============
+This Project is under Apache Licence
 
-Application Candidate au Concours oobarmijoo sur iStart.dz de ooredoo
+===============
+
+Here's a little Gist
 
 https://gist.github.com/boudeffa/8344183
 =======
+
+TODO :
+
