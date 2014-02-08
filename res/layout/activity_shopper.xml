@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+
+		<AutoCompleteTextView android:id="@+id/autocomplete_text"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"/>
+		
+		<Button android:id="@+id/button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 				
+			android:text="Trouver à manger !" />
+	
+<!-- This is the container for the Ad View -->
+
+    <com.adsdk.sdk.banner.AdView
+        android:id="@+id/adSdkView"
+		android:layout_width="300dp"
+		android:background="#111111"
+		android:layout_height="50dp"
+		request_url="http://aldaffah.biz/ads/mAdserve-2.0/md.request.php"
+		publisherId="b3b12f9f78b5fc3e42d1254dd1ad314f"
+		location="true"
+		animation="true"
+		android:layout_centerHorizontal="true"
+		/>
+</LinearLayout>
