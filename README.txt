@@ -5,9 +5,9 @@ HOWTO :
 
 - Put a word in the text box then click find Foods (Must be named Find On OFF)
 
------> After search
+-----> After search it display a list of foods
 
-- Click on Food get into Open Food Facts (OFF)
+- Click on a Food in the list to get into Open Food Facts (OFF) description
 - Longclick add the Food to OI Shopping List
 
 TODO :
