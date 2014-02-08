@@ -2,6 +2,12 @@ This Project is under Apache Licence so be respectful to its terms please
 This work is about one month total time 8 hours / day of googling and developpement
 
 ========
+APK :
+========
+
+In the folder /bin of this GIT
+
+========
 HOWTO :
 ========
 
