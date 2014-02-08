@@ -6,7 +6,7 @@ Here's a little Gist
 https://gist.github.com/boudeffa/8344183
 =======
 
-- Put a word in the text click find Foods
+- Put a word in the text box then click find Foods (Must be named Find On OFF)
 
 -----> After search
 
