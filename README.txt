@@ -1,4 +1,4 @@
-This Project is under Apache Licence so be respectful to the terms please
+This Project is under Apache Licence so be respectful to its terms please
 This work is about one month total time 8 hours / day of reasearch and developpement
 
 HOWTO :
