@@ -5,7 +5,7 @@ This work is about one month total time 8 hours / day of googling and developpem
 APK :
 ========
 
-In the folder /bin of this GIT
+In the folder /bin of this GIT under the name OpenFoodShopper.apk
 
 ========
 HOWTO :
