@@ -15,5 +15,5 @@ click on Food get into Open Food Facts
 longclick add the Food to OI Shopping List
 
 TODO :
-High Priority : Add Item to OI SHopping List, don't understand
+High Priority : Add Item to OI Shopping List
 
