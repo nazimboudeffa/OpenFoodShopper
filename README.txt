@@ -1,10 +1,6 @@
+Hugh !
+
 This Project is under Apache Licence
-
-===============
-Here's a little Gist
-
-https://gist.github.com/boudeffa/8344183
-=======
 
 - Put a word in the text box then click find Foods (Must be named Find On OFF)
 
@@ -16,3 +12,8 @@ https://gist.github.com/boudeffa/8344183
 TODO :
 High Priority -> Add Item to OI Shopping List
 
+===============
+Here's a little Gist
+
+https://gist.github.com/boudeffa/8344183
+=======
