@@ -1,7 +1,7 @@
  ****************************************************************************
  *                                                                          *
  * Open Food Shopper - Open Source Android Application                      *
- * From Open Food Facts search to display in OI Shopping List               *
+ * Search food in Open Food Facts and add it in OI Shopping List            *
  *                                                                          *
  ****************************************************************************
  * Copyright (C) 2014 Al Daffah Consulting. (http://www.aldaffah.biz)       *
