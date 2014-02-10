@@ -51,6 +51,7 @@ TODO :
 ========
 
 High Priority -> Add Item to OI Shopping List
+              -> add food only if OI Shopping is installed
 
 ========
 GIST :
