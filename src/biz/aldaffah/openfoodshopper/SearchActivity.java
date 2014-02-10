@@ -1,30 +1,30 @@
-/***********************************************************************************************************************
- *
- * Open Food Shopper - Open Source Android Application for Open Food Facts search and display in OI Shopping List
- * ==========================================
- *
- * Copyright (C) 2014 by Al Daffah Consulting. (http://www.aldaffah.biz)
- * 
- *
- ***********************************************************************************************************************
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- ***********************************************************************************************************************
- *
- * @author Nazim Boudeffa
- * And some googling
- * Thanks to Stéphane Gigandet from OpenFoodFacts.org
- * Thanks to Openintent.og for Opening OI Applications
- *
- **********************************************************************************************************************/
+/****************************************************************************
+ *                                                                          *
+ * Open Food Shopper - Open Source Android Application                      *
+ * Search food in Open Food Facts and add it in OI Shopping List            *
+ *                                                                          *
+ ****************************************************************************
+ * Copyright (C) 2014 Al Daffah Consulting. (http://www.aldaffah.biz)       *
+ *                                                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ *      http://www.apache.org/licenses/LICENSE-2.0                          *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ ****************************************************************************
+ *                                                                          *
+ * @author Nazim Boudeffa                                                   *
+ * And some googling                                                        *
+ * Thanks to Stéphane Gigandet from OpenFoodFacts.org                       *
+ * Thanks to Openintent.og for Opening OI Applications                      *
+ *                                                                          *
+ ****************************************************************************/
 package biz.aldaffah.openfoodshopper;
 
 import java.net.UnknownHostException;
@@ -123,11 +123,12 @@ public class SearchActivity extends Activity {
 		if (networkInfo != null && networkInfo.isConnected()) {
 
 			try {
-				/**
+				/*
 				 * Get the Bundle Object Bundle bundleObject =
 				 * getIntent().getExtras(); Get ArrayList Bundle ArrayList<Item>
 				 * classObject = ((ArrayList<Item>)
-				 * bundleObject.getSerializable("ITEM_LIST"));
+				 * bundleObject.getSerializable("ITEM_LIST")); It's better to
+				 * get only texttosearch for a better Device performance
 				 */
 
 				Bundle bundle = getIntent().getExtras();
@@ -168,7 +169,8 @@ public class SearchActivity extends Activity {
 				Log.i(TAG, "doInBackground");
 
 				/*
-				 * TODO Check if Open Food Facts MongoDB is empty or in maintenance before connect
+				 * TODO Check if Open Food Facts MongoDB is empty or in
+				 * maintenance before connect
 				 */
 				MongoClient mongo = new MongoClient("paulo.mongohq.com", 10096);
 				DB db = mongo.getDB("OpenFoodFacts");
@@ -183,10 +185,7 @@ public class SearchActivity extends Activity {
 
 				try {
 					while (cursor.hasNext()) {
-						Log.i(TAG, "Cursor has Next");
-						// DBObject Result = cursor.next();
 						DBObject Result = cursor.next();
-						// strList.add((String) Result.get("product_name"));
 						mList.add(new Item((String) Result.get("product_name"),
 								(String) Result.get("url")));
 
@@ -255,7 +254,7 @@ public class SearchActivity extends Activity {
 
 				String url = List.get(position).getUrl().toString();
 
-				// String URL from Database
+				// Item String URL from Open Food Facts Database
 				Intent i = new Intent(Intent.ACTION_VIEW);
 				i.setData(Uri.parse(url));
 				startActivity(i);
@@ -268,19 +267,47 @@ public class SearchActivity extends Activity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int pos, long id) {
 
-				Context context = getApplicationContext();
-				CharSequence text = List.get(pos).getTitle().toString();
-				int duration = Toast.LENGTH_SHORT;
+				/*
+				 * Passing Extras to ArrayLists then call startApplication to
+				 * add them to OI Shopping List It's better to manage quantities
+				 * directly from Shopping
+				 */
 
-				Toast toast = Toast.makeText(context, "Ajout de " + text,
-						duration);
-				toast.show();
-				// Passing Extras to OI Shopping List
 				extraShopping.add(List.get(pos).getTitle().toString());
 				extraQuantity.add("1");
 				extraPrice.add("0");
 				extraBarcode.add("0");
-				startApplication("org.openintents.shopping");
+
+				if (startApplication("org.openintents.shopping")) {
+
+					Context context = getApplicationContext();
+					CharSequence text = List.get(pos).getTitle().toString();
+					int duration = Toast.LENGTH_SHORT;
+
+					Toast toast = Toast.makeText(context, "Ajout de " + text,
+							duration);
+					toast.show();
+
+					/*
+					 * After adding items clear the ArrayLists TODO verify if
+					 * the items exist in ArrayLists or not
+					 */
+
+					extraShopping.clear();
+					extraQuantity.clear();
+					extraPrice.clear();
+					extraBarcode.clear();
+
+				} else {
+					/*
+					 * No match, so OI Shopping is not installed verify and add
+					 * it from market
+					 */
+
+					showInMarket("org.openintents.shopping");
+				}
+				;
+
 				return true;
 
 			}
@@ -288,7 +315,7 @@ public class SearchActivity extends Activity {
 
 	}
 
-	public void startApplication(String packageName) {
+	public boolean startApplication(String packageName) {
 		try {
 
 			Intent intent = new Intent("android.intent.action.MAIN");
@@ -302,28 +329,32 @@ public class SearchActivity extends Activity {
 				if (info.activityInfo.packageName.equalsIgnoreCase(packageName)) {
 					launchComponent(info.activityInfo.packageName,
 							info.activityInfo.name);
-					return;
+					return true;
 				}
 
-			// No match, so application is not installed
-			showInMarket(packageName);
 		} catch (Exception e) {
-			showInMarket(packageName);
+			Log.e("ERROR", "Undtermined error !");
 		}
+		return false;
 	}
 
 	private void launchComponent(String packageName, String name) {
 
 		Intent intent = new Intent();
 		/*
-		 * TODO FIX Creation of menu if (mExtraItems != null) { menu.add(0,
-		 * MENU_INSERT_FROM_EXTRAS, 0, R.string.menu_auto_add)
+		 * TODO FIX Creation of menu in shopping if (mExtraItems != null) {
+		 * menu.add(0, MENU_INSERT_FROM_EXTRAS, 0, R.string.menu_auto_add)
 		 * .setIcon(android.R.drawable.ic_menu_upload); }
 		 */
-		// intent.setComponent(new ComponentName(packageName,
-		// packageName+".ShoppingActivity"));
-		intent.setClassName(packageName, packageName
-				+ ".ui.ShoppingListsActivity");
+
+		/*
+		 * clear my thoughts about intents and the call to startApplication
+		 * intent.setComponent(new ComponentName(packageName,
+		 * packageName+".ShoppingActivity")); intent.setClassName(packageName,
+		 * packageName + ".ui.ShoppingListsActivity"); Intent is found
+		 * automatically so it have to be called directly
+		 */
+
 		intent.setType("org.openintents.type/string.arraylist.shopping");
 		intent.setAction("org.openintents.action.INSERT_FROM_EXTRAS");
 
@@ -334,9 +365,6 @@ public class SearchActivity extends Activity {
 		intent.putStringArrayListExtra(EXTRA_STRING_ARRAYLIST_PRICE, extraPrice);
 		intent.putStringArrayListExtra(EXTRA_STRING_ARRAYLIST_BARCODE,
 				extraBarcode);
-		Uri uri = Uri
-				.parse("content://org.openintents.shopping/lists/OpenFoodShopper");
-		intent.setData(uri);
 
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
