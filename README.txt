@@ -52,6 +52,7 @@ TODO :
 
 High Priority -> Add Item to OI Shopping List
               -> Add food only if OI Shopping is installed
+When FIXED => Add criteria for search, Ex : country
 
 ========
 GIST :
