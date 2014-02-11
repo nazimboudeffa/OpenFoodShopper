@@ -1,4 +1,4 @@
- ****************************************************************************
+﻿ ****************************************************************************
  *                                                                          *
  * Open Food Shopper - Open Source Android Application                      *
  * Search food in Open Food Facts and add it in OI Shopping List            *
@@ -50,9 +50,9 @@ HOWTO :
 TODO :
 ========
 
-High Priority -> Add Item to OI Shopping List
-              -> Add food only if OI Shopping is installed
-When FIXED => Add criteria for search, Ex : country
+
+Add search criteria, Ex : sensibility to a particular product, country, ...
+
 
 ========
 GIST :
