@@ -58,5 +58,5 @@ Add search criteria, Ex : sensibility to a particular product, country, ...
 GIST :
 ========
 
-https://gist.github.com/boudeffa/8344183
+#8344183
 
