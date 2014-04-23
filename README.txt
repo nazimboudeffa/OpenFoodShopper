@@ -53,6 +53,9 @@ TODO :
 
 Add search criteria, Ex : sensibility to a particular product, country, ...
 
+This is how the foods are searched in OpenFoodFacts MongoHQ Database :
+searchQuery.put("product_name", new BasicDBObject("$regex","(.*)" + texttosearch + "(.*)"));
+
 
 ========
 GIST :
